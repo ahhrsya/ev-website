@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Menu, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const SPOTLIGHT_R = 260;
 const GRID_CELL = 48;
@@ -80,14 +80,13 @@ const RevealLayer: React.FC<RevealLayerProps> = ({ cursorX, cursorY, bgImage2 })
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState('Products');
-  const navItems = ['Products', 'Stories', 'Science', 'Plans'];
+  const [activeItem, setActiveItem] = useState('Home');
+  const navItems = ['Home', 'Design', 'Performance', 'Specs'];
 
   // Universal Asset Paths
   const image2 = '/assets/image-2.png';
   const image4 = '/assets/image-4.png';
   const image5 = '/assets/image-5.png';
-  const image6 = '/assets/image-6.png';
   const image9 = '/assets/image-9.png';
   const image10 = '/assets/image-10.png';
   const image11 = '/assets/image-11.png';
@@ -107,6 +106,7 @@ export default function App() {
   // Exterior customizer state variables (Section 4: Configure)
   const [configPaint, setConfigPaint] = useState({
     name: 'Midnight Stealth',
+    shortName: 'Stealth',
     hex: '#111827',
     accent: '#38bdf8',
     filter: 'grayscale(0.9) brightness(0.65) contrast(1.25) saturate(0.8)',
@@ -115,7 +115,16 @@ export default function App() {
 
   const paints = [
     {
+      name: 'Apex Sky Blue',
+      shortName: 'Aero',
+      hex: '#0369a1',
+      accent: '#06b6d4',
+      filter: 'hue-rotate(190deg) saturate(1.5) brightness(0.75) contrast(1.1)',
+      price: 2000
+    },
+    {
       name: 'Midnight Stealth',
+      shortName: 'Stealth',
       hex: '#111827',
       accent: '#38bdf8',
       filter: 'grayscale(0.9) brightness(0.65) contrast(1.25) saturate(0.8)',
@@ -123,20 +132,15 @@ export default function App() {
     },
     {
       name: 'Solaris Crimson',
+      shortName: 'Crimson',
       hex: '#7f1d1d',
       accent: '#ef4444',
       filter: 'hue-rotate(330deg) saturate(1.8) brightness(0.7) contrast(1.1)',
       price: 2500
     },
     {
-      name: 'Apex Sky Blue',
-      hex: '#0369a1',
-      accent: '#06b6d4',
-      filter: 'hue-rotate(190deg) saturate(1.5) brightness(0.75) contrast(1.1)',
-      price: 2000
-    },
-    {
       name: 'Aurora Bronze Gold',
+      shortName: 'Bronze',
       hex: '#451a03',
       accent: '#f59e0b',
       filter: 'hue-rotate(25deg) saturate(1.3) brightness(0.68) contrast(1.05)',
@@ -182,19 +186,19 @@ export default function App() {
   // Section 3: Fluidity card definitions
   const carouselCards = [
     {
-      img: image4,
-      tag: "A Radical Design",
-      desc: "Our chassis holds the 150 kWh solid-state pack safely, offering low center of gravity."
+      img: image9,
+      tag: "Ultra-Fast Charging",
+      desc: "Add up to 200 miles of range in just 15 minutes of charging."
     },
     {
-      img: image6,
-      tag: "Ultralight Alloys",
-      desc: "Every millimeter is fine-tuned to cut drag, delivering a drag coefficient of 0.19."
+      img: image10,
+      tag: "Aerodynamic Efficiency",
+      desc: "A drag coefficient of just 0.19 ensures maximum range and stability."
     },
     {
-      img: image5,
-      tag: "8K Cinematic Display",
-      desc: "Slide the 32-inch display down to stream movies in high fidelity spatial audio."
+      img: image11,
+      tag: "Intelligent Cockpit",
+      desc: "A highly responsive interface designed around the driver."
     }
   ];
 
@@ -203,10 +207,7 @@ export default function App() {
       {/* Fixed Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 sm:px-8 py-4 sm:py-5 backdrop-blur-md bg-zinc-950/20 border-b border-zinc-900/50">
         <div className="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 256 256" fill="none">
-            <path d="M 256 64 L 256 128 L 192.5 128 L 160 95 L 128 64 L 96 95 L 63.5 128 L 64 128 L 128 192 L 128 256 L 64.5 256 L 32 223 L 0 192 L 0 64 L 64 0 L 192 0 Z M 256 192 L 256 256 L 192.5 256 L 160 223 L 128 192 L 128 128 L 192 128 Z" fill="#ffffff" />
-          </svg>
-          <span className="ml-2.5 font-bold tracking-widest text-xs text-white uppercase hidden sm:inline">PureFlow</span>
+          <img src="/assets/logoo.png" alt="PureFlow Logo" className="h-6 w-auto object-contain" />
         </div>
 
         {/* Center Nav */}
@@ -228,12 +229,8 @@ export default function App() {
 
         {/* CTA Section */}
         <div className="hidden md:flex items-center gap-5">
-          <a href="#login" className="text-zinc-400 text-xs font-semibold hover:text-white transition-colors uppercase tracking-wider">
-            Log In
-          </a>
-          <a href="#configurator" className="bg-white text-zinc-950 text-xs font-semibold px-5 py-2 rounded-full flex items-center gap-2 hover:bg-zinc-200 transition-colors">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
-            Configure & Reserve
+          <a href="#configurator" className="bg-white text-zinc-950 text-xs font-semibold px-5 py-2.5 rounded-none hover:bg-zinc-200 transition-colors uppercase tracking-wider">
+            Test Drive
           </a>
         </div>
 
@@ -264,10 +261,9 @@ export default function App() {
           <a
             href="#configurator"
             onClick={() => setMenuOpen(false)}
-            className="mt-4 bg-white text-zinc-950 text-sm font-medium px-5 py-3 rounded-full flex items-center gap-2 justify-center hover:bg-zinc-200 transition-colors"
+            className="mt-4 bg-white text-zinc-950 text-sm font-semibold px-5 py-3 rounded-none flex items-center justify-center hover:bg-zinc-200 transition-colors uppercase tracking-wider"
           >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
-            Configure & Reserve
+            Test Drive
           </a>
         </div>
       )}
@@ -311,41 +307,54 @@ export default function App() {
         <div className="absolute bottom-16 left-5 right-5 sm:left-8 sm:right-8 md:left-12 md:right-12 z-50 max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div className="max-w-2xl">
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-[1.1] mb-5 tracking-tight uppercase">
-              PureFlow EV.<br />Uncompromising Power.
+              Drive Further.<br />Emit Nothing.
             </h1>
             <p className="text-zinc-400 text-xs sm:text-sm md:text-base leading-relaxed max-w-xl">
-              A high-performance electric vehicle designed to blend high-fidelity features, raw endurance, raw performance, and spatial autonomy.
+              A high-performance electric vehicle designed to blend elegance with endurance.
             </p>
           </div>
           <div>
             <a
               href="#configurator"
-              className="inline-flex bg-white text-zinc-950 text-xs sm:text-sm font-semibold px-8 py-3 rounded-none hover:bg-zinc-200 transition-colors uppercase tracking-wider"
+              className="inline-flex bg-white text-zinc-950 text-xs sm:text-sm font-semibold px-8 py-3.5 rounded-none hover:bg-zinc-200 transition-colors uppercase tracking-wider"
             >
-              Reserve Yours Now
+              Test Drive
             </a>
           </div>
         </div>
       </section>
 
-      {/* SECTION 2: ABOUT US & WIND TUNNEL IMAGE */}
+      {/* SECTION 2: ABOUT US & PLAY OVERLAY */}
       <section className="relative py-24 sm:py-32 px-5 sm:px-8 border-t border-zinc-900/60 overflow-hidden bg-zinc-950 select-none">
         <div className="max-w-4xl mx-auto text-center space-y-12">
           <div>
             <span className="text-xs font-mono font-bold tracking-[0.3em] text-sky-400 uppercase block mb-4">ABOUT US</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight leading-tight max-w-3xl mx-auto">
-            Pioneering the Next Era of Sustainable Performance
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-zinc-100 tracking-tight leading-relaxed max-w-3xl mx-auto normal-case">
+            More machined energy from cell chemistry to chassis. Our solid-state architecture removes heat and dependency at the source, delivering a driving experience closer to a precision instrument than a commuter car.
           </h2>
-          <p className="text-zinc-400 text-sm sm:text-base leading-relaxed font-light max-w-2xl mx-auto">
-            At PureFlow, we are dedicated to pushing the limits of electric vehicle performance. By combining cutting-edge solid-state cell technology with intelligent aerodynamics, we create vehicles that are exceptionally responsive and highly responsible.
-          </p>
-          <div className="w-full rounded-none border border-zinc-900 overflow-hidden bg-zinc-900/10 relative">
+          <div className="w-full rounded-none border border-zinc-900 overflow-hidden bg-zinc-900/10 relative group">
+            {/* Play Button Overlay */}
+            <div className="absolute inset-0 flex items-center justify-center z-20">
+              <button className="w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-zinc-950 shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-white pl-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </button>
+            </div>
             <img
               src={image2}
               alt="Wind Tunnel Dynamics"
-              className="w-full h-auto object-cover max-h-[480px] filter brightness-100 contrast-100 saturate-100"
+              className="w-full h-auto object-cover max-h-[480px] filter brightness-100 contrast-100 saturate-100 transition-transform duration-750 group-hover:scale-[1.02]"
             />
+          </div>
+          <div className="flex justify-center pt-4">
+            <a
+              href="#configurator"
+              className="bg-white text-zinc-950 text-xs font-bold px-8 py-3.5 rounded-none hover:bg-zinc-200 transition-colors uppercase tracking-wider"
+            >
+              Build
+            </a>
           </div>
         </div>
       </section>
@@ -356,9 +365,9 @@ export default function App() {
           {/* Header Row */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             <div className="lg:col-span-5">
-              <span className="text-xs font-mono font-bold tracking-[0.3em] text-sky-400 uppercase block mb-4">02 / FLUIDITY</span>
+              <span className="text-xs font-mono font-bold tracking-[0.3em] text-sky-400 uppercase block mb-4">02 / SPECIFICATIONS</span>
               <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight leading-tight">
-                Aerodynamics &<br />Fluid Performance
+                Every Detail.<br />Engineered with Intent.
               </h2>
             </div>
             <div className="lg:col-span-7">
@@ -437,31 +446,29 @@ export default function App() {
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center max-w-2xl mx-auto space-y-4">
             <div>
-              <span className="text-xs font-mono font-bold tracking-[0.3em] text-sky-400 uppercase block mb-4">DESIGN</span>
+              <span className="text-xs font-mono font-bold tracking-[0.3em] text-sky-400 uppercase block mb-4">03 / CONFIGURATOR</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase leading-tight">
-              Configure Your PureFlow.
+              Build Around Your Drive
             </h2>
             <p className="text-zinc-400 text-sm sm:text-base leading-relaxed font-light">
               Tailor the vehicle to your exact aesthetic profile. Choose from specialized metallic colors and high-performance alloys.
             </p>
           </div>
 
-          {/* Color Selection Swatches in the Center */}
-          <div className="flex justify-center items-center gap-3">
+          {/* Color Selection swatches as elegant minimalist text tabs */}
+          <div className="flex justify-center items-center gap-8 border-b border-zinc-900 pb-4 max-w-md mx-auto">
             {paints.map((paint) => (
               <button
                 key={paint.name}
                 onClick={() => setConfigPaint(paint)}
-                className={`w-10 h-10 rounded-full border-2 transition-all flex items-center justify-center ${
-                  configPaint.name === paint.name ? 'border-sky-400 scale-110' : 'border-zinc-800 hover:border-zinc-500'
+                className={`text-xs font-bold tracking-widest uppercase pb-2 transition-all border-b-2 ${
+                  configPaint.name === paint.name
+                    ? 'text-white border-white'
+                    : 'text-zinc-500 border-transparent hover:text-zinc-300'
                 }`}
-                style={{ backgroundColor: paint.hex }}
-                title={paint.name}
               >
-                {configPaint.name === paint.name && (
-                  <div className="w-2.5 h-2.5 rounded-full bg-white shadow" />
-                )}
+                {paint.shortName}
               </button>
             ))}
           </div>
@@ -471,7 +478,7 @@ export default function App() {
             {/* Background halo */}
             <div className="absolute w-[450px] h-[150px] bg-sky-950/20 rounded-none blur-[80px] pointer-events-none" />
             <img
-              src={image9}
+              src={image4}
               alt="Live Configurator Sideview"
               className="w-full max-w-2xl object-contain z-10 transition-all duration-700 ease-out select-none pointer-events-none"
               style={{ filter: configPaint.filter }}
@@ -480,22 +487,22 @@ export default function App() {
 
           {/* Under-Car Grid Specs exactly matching 3-column layout */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8 border-t border-zinc-900/60 max-w-5xl mx-auto">
-            <div className="space-y-2">
-              <h4 className="text-sm font-bold text-white uppercase tracking-wider">Solid-State Cell</h4>
+            <div className="space-y-2 text-center md:text-left">
+              <h4 className="text-sm font-bold text-white uppercase tracking-wider">0-60 MPH IN 2.1S</h4>
               <p className="text-xs text-zinc-400 leading-relaxed font-light">
-                A high-performance electric vehicle designed to blend high-fidelity features, raw endurance, and raw performance.
+                Unmatched instant acceleration.
               </p>
             </div>
-            <div className="space-y-2 border-t border-zinc-900/60 md:border-t-0 md:border-l md:border-zinc-900/60 pt-4 md:pt-0 md:pl-8">
-              <h4 className="text-sm font-bold text-white uppercase tracking-wider">Dynamic Vectors</h4>
+            <div className="space-y-2 border-t border-zinc-900/60 md:border-t-0 md:border-l md:border-zinc-900/60 pt-4 md:pt-0 md:pl-8 text-center md:text-left">
+              <h4 className="text-sm font-bold text-white uppercase tracking-wider">500+ MILE RANGE</h4>
               <p className="text-xs text-zinc-400 leading-relaxed font-light">
-                A high-performance electric vehicle designed to blend high-fidelity features, raw endurance, and raw performance.
+                Go further on a single solid-state charge.
               </p>
             </div>
-            <div className="space-y-2 border-t border-zinc-900/60 md:border-t-0 md:border-l md:border-zinc-900/60 pt-4 md:pt-0 md:pl-8">
-              <h4 className="text-sm font-bold text-white uppercase tracking-wider">Endless Horizons</h4>
+            <div className="space-y-2 border-t border-zinc-900/60 md:border-t-0 md:border-l md:border-zinc-900/60 pt-4 md:pt-0 md:pl-8 text-center md:text-left">
+              <h4 className="text-sm font-bold text-white uppercase tracking-wider">1020 HP PEAK</h4>
               <p className="text-xs text-zinc-400 leading-relaxed font-light">
-                A high-performance electric vehicle designed to blend high-fidelity features, raw endurance, and raw performance.
+                Tri-motor high-performance setup.
               </p>
             </div>
           </div>
@@ -508,13 +515,13 @@ export default function App() {
           {/* Left Column Text details */}
           <div className="lg:col-span-5 p-8 sm:p-16 md:p-24 flex flex-col justify-center space-y-6 max-w-xl">
             <div>
-              <span className="text-xs font-mono font-bold tracking-[0.3em] text-sky-400 uppercase block mb-4">INTERIOR</span>
+              <span className="text-xs font-mono font-bold tracking-[0.3em] text-sky-400 uppercase block mb-4">04 / INTERIOR</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase leading-tight">
-              An Intelligent<br />Digital Sanctuary
+              Command the Road,<br />Feel Every Detail.
             </h2>
             <p className="text-zinc-400 text-sm sm:text-base leading-relaxed font-light">
-              The carbon yoke steering is a performance statement. Retreating driver steering components lift to present a breathtaking **32-inch 8K theater panel**.
+              The carbon yoke steering is a performance statement. Retreating driver steering components lift to present a breathtaking 32-inch 8K theater panel.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 pt-4">
@@ -567,18 +574,18 @@ export default function App() {
         </div>
       </section>
 
-      {/* SECTION 6: INVESTMENT NOT EXPENSE */}
+      {/* SECTION 6: A NEW STANDARD IN MOTION */}
       <section className="relative py-24 sm:py-32 px-5 sm:px-8 border-t border-zinc-900 overflow-hidden bg-zinc-950">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center max-w-2xl mx-auto space-y-4">
             <div>
-              <span className="text-xs font-mono font-bold tracking-[0.3em] text-sky-400 uppercase block mb-4">BUSINESS</span>
+              <span className="text-xs font-mono font-bold tracking-[0.3em] text-sky-400 uppercase block mb-4">05 / MOTION</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase leading-tight">
-              Investment not expense
+              A New Standard in Motion.
             </h2>
             <p className="text-zinc-400 text-sm sm:text-base leading-relaxed font-light">
-              Performance-oriented engineering doesn't just feel superior—it ensures corporate endurance and mileage longevity.
+              Designed for individuals, built for teams.
             </p>
           </div>
 
@@ -595,14 +602,8 @@ export default function App() {
                 <div className="w-full h-44 rounded-none overflow-hidden bg-zinc-950 mb-6 relative">
                   <div className="absolute inset-0 bg-cover bg-center opacity-65 filter saturate-[0.7]" style={{ backgroundImage: `url(${image10})` }} />
                 </div>
-                <h3 className="text-lg font-black text-white leading-snug uppercase mb-2">Elevate your corporate fleet with intelligent routing</h3>
-                <p className="text-xs text-zinc-400 leading-relaxed font-light">Coordinated systems manage schedules automatically.</p>
-              </div>
-
-              <div className="z-10 pt-2 border-t border-zinc-900/60">
-                <a href="#read1" className="inline-flex items-center gap-1 text-xs font-bold text-sky-400 hover:text-white transition-colors">
-                  Read more <ArrowRight size={10} />
-                </a>
+                <h3 className="text-lg font-black text-white leading-snug uppercase mb-2">Ultra-Low Total Cost of Ownership</h3>
+                <p className="text-xs text-zinc-400 leading-relaxed font-light">Optimized battery management reduces total cost of ownership.</p>
               </div>
             </div>
 
@@ -617,14 +618,8 @@ export default function App() {
                 <div className="w-full h-44 rounded-none overflow-hidden bg-zinc-950 mb-6 relative">
                   <div className="absolute inset-0 bg-cover bg-center opacity-65 filter saturate-[0.7]" style={{ backgroundImage: `url(${image11})` }} />
                 </div>
-                <h3 className="text-lg font-black text-white leading-snug uppercase mb-2">Carbon footprint reporting for every single mile</h3>
-                <p className="text-xs text-zinc-400 leading-relaxed font-light">Track your environmental benefits directly.</p>
-              </div>
-
-              <div className="z-10 pt-2 border-t border-zinc-900/60">
-                <a href="#read2" className="inline-flex items-center gap-1 text-xs font-bold text-sky-400 hover:text-white transition-colors">
-                  Read more <ArrowRight size={10} />
-                </a>
+                <h3 className="text-lg font-black text-white leading-snug uppercase mb-2">Zero Emission Fleet Solutions</h3>
+                <p className="text-xs text-zinc-400 leading-relaxed font-light">Transition your organization to sustainable, high-fidelity transit.</p>
               </div>
             </div>
 
@@ -639,14 +634,8 @@ export default function App() {
                 <div className="w-full h-44 rounded-none overflow-hidden bg-zinc-950 mb-6 relative">
                   <div className="absolute inset-0 bg-cover bg-center opacity-65 filter saturate-[0.7]" style={{ backgroundImage: `url(${image12})` }} />
                 </div>
-                <h3 className="text-lg font-black text-white leading-snug uppercase mb-2">Dynamic fleet routing keeps systems responsive</h3>
-                <p className="text-xs text-zinc-400 leading-relaxed font-light">Active traffic management decreases overall times.</p>
-              </div>
-
-              <div className="z-10 pt-2 border-t border-zinc-900/60">
-                <a href="#read3" className="inline-flex items-center gap-1 text-xs font-bold text-sky-400 hover:text-white transition-colors">
-                  Read more <ArrowRight size={10} />
-                </a>
+                <h3 className="text-lg font-black text-white leading-snug uppercase mb-2">Dynamic Routing & Optimization</h3>
+                <p className="text-xs text-zinc-400 leading-relaxed font-light">Connected telemetry system coordinates routing for maximal efficiency.</p>
               </div>
             </div>
           </div>
@@ -654,10 +643,10 @@ export default function App() {
           {/* Book Fleet Demo Button */}
           <div className="flex justify-center pt-4">
             <a
-              href="#book"
+              href="#configurator"
               className="bg-white text-zinc-950 text-xs font-bold px-8 py-3.5 rounded-none hover:bg-zinc-200 transition-all uppercase tracking-wider"
             >
-              Book a fleet demo
+              Build
             </a>
           </div>
         </div>
@@ -668,31 +657,30 @@ export default function App() {
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center max-w-2xl mx-auto space-y-6">
             <div>
-              <span className="text-xs font-mono font-bold tracking-[0.3em] text-sky-400 uppercase block mb-4">HORIZON</span>
+              <span className="text-xs font-mono font-bold tracking-[0.3em] text-sky-400 uppercase block mb-4">06 / JOURNEY</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase leading-tight">
-              Premium Scalable<br />Fleet Solutions
+              Start Your Electric Journey
             </h2>
             <p className="text-zinc-400 text-sm leading-relaxed font-light max-w-xl mx-auto">
-              Join the next era of emission-free business transport with our scalable premium fleet solutions.
+              Join the movement towards a zero-emission future today.
             </p>
             <div className="pt-2">
               <a
-                href="#reserve"
-                className="bg-white text-zinc-950 text-xs font-bold px-8 py-3 rounded-none hover:bg-zinc-200 transition-colors uppercase tracking-wider"
+                href="#configurator"
+                className="bg-white text-zinc-950 text-xs font-bold px-8 py-3.5 rounded-none hover:bg-zinc-200 transition-colors uppercase tracking-wider"
               >
-                Reserve Yours Now
+                Test Drive Now
               </a>
             </div>
           </div>
 
           {/* Breathtaking horizon parked fleet cityscape landscape */}
           <div className="w-full rounded-none overflow-hidden bg-zinc-950 relative max-w-5xl mx-auto">
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent z-10" />
             <img
               src={image12}
               alt="Parked Fleet Cityscape Horizon"
-              className="w-full h-auto object-cover max-h-[500px] filter contrast-[1.1] brightness-[0.7] saturate-[0.9]"
+              className="w-full h-auto object-cover max-h-[500px] filter contrast-100 brightness-100 saturate-100"
             />
           </div>
         </div>
@@ -704,10 +692,7 @@ export default function App() {
           {/* Main Footer layout */}
           <div className="flex flex-col items-center text-center space-y-8 max-w-2xl mx-auto pt-8">
             <div className="flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 256 256" fill="none">
-                <path d="M 256 64 L 256 128 L 192.5 128 L 160 95 L 128 64 L 96 95 L 63.5 128 L 64 128 L 128 192 L 128 256 L 64.5 256 L 32 223 L 0 192 L 0 64 L 64 0 L 192 0 Z M 256 192 L 256 256 L 192.5 256 L 160 223 L 128 192 L 128 128 L 192 128 Z" fill="#ffffff" />
-              </svg>
-              <span className="ml-3 font-bold tracking-widest text-lg text-white uppercase">PureFlow</span>
+              <img src="/assets/logoo.png" alt="PureFlow Logo" className="h-8 w-auto object-contain" />
             </div>
             <p className="text-zinc-500 text-xs sm:text-sm leading-relaxed max-w-md font-light">
               Empowering next generation electric transit, driving sustainability with high performance.
@@ -725,7 +710,7 @@ export default function App() {
           {/* Breathtaking giant text background watermark */}
           <div className="absolute left-1/2 bottom-20 -translate-x-1/2 select-none pointer-events-none opacity-[0.03] z-0">
             <span className="text-[120px] sm:text-[180px] md:text-[240px] font-black tracking-[0.15em] text-white uppercase font-sans">
-              ADVENTURE
+              PUREFLOW
             </span>
           </div>
 
