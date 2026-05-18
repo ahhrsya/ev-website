@@ -91,6 +91,7 @@ export default function App() {
   const image10 = '/assets/image-10.png';
   const image11 = '/assets/image-11.png';
   const image12 = '/assets/image-12.png';
+  const image13 = '/assets/image-13.png';
 
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const mouseRef = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
@@ -205,9 +206,9 @@ export default function App() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white antialiased" style={{ fontFamily: 'Inter, sans-serif' }}>
       {/* Fixed Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 sm:px-8 py-4 sm:py-5 backdrop-blur-md bg-zinc-950/20 border-b border-zinc-900/50">
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 sm:px-8 py-2.5 sm:py-3.5 backdrop-blur-md bg-zinc-950/20 border-b border-zinc-900/50">
         <div className="flex items-center">
-          <img src="/assets/logoo.png" alt="PureFlow Logo" className="h-6 w-auto object-contain" />
+          <img src="/assets/logoo.png" alt="PureFlow Logo" className="w-auto object-contain" style={{ height: '48px' }} />
         </div>
 
         {/* Center Nav */}
@@ -678,7 +679,7 @@ export default function App() {
           {/* Breathtaking horizon parked fleet cityscape landscape */}
           <div className="w-full rounded-none overflow-hidden bg-zinc-950 relative max-w-5xl mx-auto">
             <img
-              src={image12}
+              src={image13}
               alt="Parked Fleet Cityscape Horizon"
               className="w-full h-auto object-cover max-h-[500px] filter contrast-100 brightness-100 saturate-100"
             />
@@ -692,7 +693,7 @@ export default function App() {
           {/* Main Footer layout */}
           <div className="flex flex-col items-center text-center space-y-8 max-w-2xl mx-auto pt-8">
             <div className="flex items-center justify-center">
-              <img src="/assets/logoo.png" alt="PureFlow Logo" className="h-8 w-auto object-contain" />
+              <img src="/assets/logoo.png" alt="PureFlow Logo" className="w-auto object-contain" style={{ height: '48px' }} />
             </div>
             <p className="text-zinc-500 text-xs sm:text-sm leading-relaxed max-w-md font-light">
               Empowering next generation electric transit, driving sustainability with high performance.
